@@ -1,0 +1,102 @@
+\documentclass[12pt]{notes}
+\renewcommand{\theauthor}{Alessandro Rizzoni}
+\renewcommand{\thedoctitle}{Electric Machines Notes}
+\author{\theauthor}
+\title{\thedoctitle}
+
+\begin{document}
+
+\section{Introduction}
+
+Along with power systems, power electronics, and high voltage engineering, the study of \emph{electric machines} is a core topic of the power field within electrical engineering. Fig. \ref{fig:electric_machines_context} shows where the study of electric machines fits into the larger picture of electrical engineering.
+
+\begin{figure}[!ht] 
+    \begin{center}
+        \begin{circuitikz}[scale=1, transform shape]
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center] (power) at (0,0) {Power};
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center] (powersystems) at (0,2) {Power Systems};
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center] (powerelectronics) at (3,0) {Power Electronics};
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center] (highvoltage) at (0,-2) {High Voltage};
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center, fill=gray!25] (electricmachines) at (-3,0) {\emph{Electric Machines}};
+            \draw (power)
+                to[short] (powersystems);
+            \draw (power)
+                to[short] (powerelectronics);
+            \draw (power)
+                to[short] (highvoltage);
+            \draw (power)
+                to[short] (electricmachines);
+        \end{circuitikz}
+        \caption{Context of Electric Machines within Electrical Engineering \cite{zhang_lectures}}
+    \label{fig:electric_machines_context}
+    \end{center}
+\end{figure}
+
+\subsection{Modern Electric Machine Drive Systems}
+\begin{figure}[!ht] 
+    \begin{center}
+            \usetikzlibrary{arrows.meta}
+        \begin{circuitikz}[scale=1, transform shape]
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center] (powersource) at (0,0) {Power Source};
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center] (powerelec) at (3,0) {Power Electronic Circuits};
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center] (elecmach) at (6,0) {Electric Machine};
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center] (controller) at (1.5,-2) {Digital Controller};
+            \node[draw, text width=0.75in, minimum height=0.5in, align=center] (sensors) at (4.5,-2) {Sensing System};
+            \draw (powersource)
+                to[short] (powerelec);
+            \draw (powerelec)
+                to[short] (elecmach);
+            \draw (elecmach)
+                to[short] (sensors);
+            \draw (powerelec)
+                to[short] (controller);
+            \draw (sensors)
+                to[short] (powerelec);
+            \draw (sensors)
+                to[short] (controller);
+        \end{circuitikz}
+        \caption{Block diagram of a modern electric machine drive system \cite{zhang_lectures}}
+    \label{fig:electric_machine_drive_block_diagram}
+    \end{center}
+\end{figure}
+
+\begin{table}[!ht]
+    \begin{center}
+            \caption{Table accompanying Fig. \ref{fig:electric_machine_drive_block_diagram} \cite{zhang_lecture}}
+        \begin{tabular}{ c c }
+            \hline
+            Power Source & AC Grid or Batteries \\
+            Power Electronic Circuits & High efficiency power conversion \\
+            Electric Machine & DC Machines or AC Machines \\
+            Sensing System & Sensors for feedback control, fault diagnosis, and protection \\
+            Digital Controller & Control for power conversion \\
+            \hline
+        \end{tabular}
+        \label{tab:electric_machine_drive_block_diagram}
+    \end{center}
+\end{table}
+
+
+\subsection{Typical Electric Machine and Drive System}
+MACHINE DRIVE BLOCK DIAGRAM GOES HERE
+
+variable voltage variable frequency (VVVF), variable speed drive (VSD)
+
+This architecture will be the focus of the class.
+
+\section{Review of Magnetic Concepts}
+\section{Magnetic Circuits}
+\section{Energy Convertion of EM Devices}
+\section{DC Machines}
+\section{Rotating Magnetomotive Force of AC Machine and Windings}
+\section{Reference Frame Transformation}
+\section{Mathematical Modeling of Synchronous Machines}
+\section{Analysis of Synchronous Machines}
+\section{Vector Control of Synchronous Machines}
+\section{Control of Synchronous Machines with DC/AC Inverter}
+\section{Mathematical Modeling of Induction Machines}
+\section{Indirect Field-Oriented Control of Induction Machines}
+
+\printbibliography
+
+\end{document}

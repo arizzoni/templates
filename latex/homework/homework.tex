@@ -1,0 +1,61 @@
+\documentclass[10pt]{homework}
+
+\renewcommand{\theauthor}{Homework Template \\ Spring 2024 \\ Alex Rizzoni}
+\renewcommand{\thedoctitle}{\small The Ohio State University \\ College of Engineering \\ Electrical \& Computer Engineering Dept.}
+
+\author{\theauthor}
+\title{\thedoctitle}
+
+\begin{document}
+
+\section{Sinusoidal Voltages}
+
+\begin{center}
+    \begin{figure}
+        \begin{python}
+import numpy as np
+
+FREQUENCY = 4
+OMEGA = 2 * np.pi * FREQUENCY
+PHI = np.pi / 4
+
+t = np.linspace(0, 1, 1000)
+
+x_1 = np.cos(OMEGA*t + PHI)
+x_2 = np.sin(OMEGA*t + PHI)
+
+fig, ax = plt.subplots(1, 1)
+ax.plot(t, x_1, label='$x_1$')
+ax.plot(t, x_2, label='$x_2$')
+ax.plot(t, -x_1, label='$x_3$')
+ax.plot(t, -x_2, label='$x_4$')
+ax.set_xlabel(r'Time')
+ax.set_ylabel(r'Voltage')
+ax.xaxis.set_major_formatter(eng_format(r'\unit{\second}'))
+ax.yaxis.set_major_formatter(eng_format(r'\unit{\volt}'))
+ax.legend(ncols=len(ax.lines), bbox_to_anchor=(0.5, 1), loc='lower center')
+fig.align_ylabels()
+
+environment.output_figure(fig)
+        \end{python}
+        \caption{Sinusoidal Functions}\label{fig_sine_funcs}
+    \end{figure}
+\end{center}
+
+The plot in Fig. \ref{fig_sine_funcs} shows two sinusoidal signals. They can be described mathematically as shown in Eq. \ref{eq_sine_funcs}.
+
+\begin{equation} \label{eq_sine_funcs}
+    \begin{split}
+        x_1 &= \cos\left(2\pi ft + \phi\right) \\
+            &= \cos\left(2\pi \times \py{FREQUENCY}t + \frac{\pi}{\py{np.round(1/(PHI/np.pi), 1)}}\right) \\
+        x_2 &= \sin\left(2\pi ft + \phi\right) \\
+            &= \sin\left(2\pi \times \py{FREQUENCY}t + \frac{\pi}{\py{np.round(1/(PHI/np.pi), 1)}}\right) \\
+        x_1 &= -\cos\left(2\pi ft + \phi\right) \\
+            &= -\cos\left(2\pi \times \py{FREQUENCY}t + \frac{\pi}{\py{np.round(1/(PHI/np.pi), 1)}}\right) \\
+        x_4 &= -\sin\left(2\pi ft + \phi\right) \\
+            &= -\sin\left(2\pi \times \py{FREQUENCY}t + \frac{\pi}{\py{np.round(1/(PHI/np.pi), 1)}}\right) \\
+        \mathrm{for\ } f &= \py{FREQUENCY} \mathrm{\ and\ } \phi = \frac{\pi}{\py{np.round(1/(PHI/np.pi), 1)}}
+    \end{split}
+\end{equation}
+
+\end{document}

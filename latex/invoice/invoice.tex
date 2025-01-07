@@ -1,0 +1,67 @@
+\documentclass[11pt]{letter}
+
+\usepackage[english]{babel}
+
+\usepackage[letterpaper, lmargin=1in, rmargin=1in, tmargin = 1in, bmargin = 1in, headsep=0in]{geometry}
+
+\usepackage{fontspec}
+\setmainfont{texgyretermes-regular.otf}[%
+    Ligatures=TeX,
+    ItalicFont=texgyretermes-italic.otf,
+    BoldFont=texgyretermes-bold.otf,
+    BoldItalicFont=texgyretermes-bolditalic.otf,
+    Scale=MatchLowercase
+    ]
+\setsansfont{texgyretermes-regular.otf}[%
+    Ligatures=TeX,
+    ItalicFont=texgyretermes-italic.otf,
+    BoldFont=texgyretermes-bold.otf,
+    BoldItalicFont=texgyretermes-bolditalic.otf,
+    Scale=MatchLowercase
+    ]
+\setmonofont{texgyrecursor-regular.otf}[%
+    Ligatures=TeX,
+    ItalicFont=texgyrecursor-italic.otf,
+    BoldFont=texgyrecursor-bold.otf,
+    BoldItalicFont=texgyrecursor-bolditalic.otf,
+    Scale=MatchLowercase
+    ]
+
+\usepackage[]{invoice2}
+
+\usepackage{lipsum}
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyhead[C]{ \Large \textbf{ Author } }
+	\fancyfoot[C]{
+		Author Address \\
+		}
+	}
+
+\pagestyle{plain}
+
+\makeatletter
+\let\ps@empty\ps@plain
+\let\ps@firstpage\ps@plain
+\makeatother
+
+\signature{ Author }
+
+\begin{document}
+\begin{letter}{ Recipient Address \\ 1234 Address Rd \\ Placeville, USA 12345 }
+
+	\opening{\textbf{\Large Invoice \#1234}}
+	\begin{invoice}
+		\invoicesingleitem{This}{1.23}
+		\invoicesingleitem{That}{45.67}
+		\invoicesingleitem{Another}{8.90}
+	\end{invoice}
+
+	Please transfer the amount due to me by next Tuesday.
+
+\closing{Thank you,}
+
+\end{letter}
+\end{document}

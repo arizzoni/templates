@@ -1,0 +1,36 @@
+\documentclass[12pt]{letter}
+\usepackage[letterpaper, lmargin=1in, rmargin=1in, tmargin = 1in, bmargin = 1in, headsep=0in]{geometry}
+\usepackage[english]{babel}
+
+\usepackage{stix2}
+
+\usepackage{lipsum}
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{
+	\fancyhf{}
+	\fancyhead[C]{ \large \scshape AUTHOR }
+	\fancyfoot[C]{ \scshape
+		ADDRESS
+		}
+	}
+
+\pagestyle{plain}
+\makeatletter
+\let\ps@empty\ps@plain
+\let\ps@firstpage\ps@plain
+\makeatother
+
+\signature{ Signature }
+
+\begin{document}
+\begin{letter}{ Addressee \\ Organization \\ Address Line 1 \\ Address Line 2 }
+
+	\opening{Dear Addressee,}
+
+	\lipsum[2-3]
+
+	\closing{Warmest regards,}
+
+\end{letter}
+\end{document}
