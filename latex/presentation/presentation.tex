@@ -1,0 +1,61 @@
+\documentclass{presentation}
+\author{Alessandro Rizzoni \break\texttt{rizzoni.3@osu.edu}}
+\title{Presentations with PyDoc}
+\subtitle{Never use PowerPoint again!}
+\institute{The Ohio State University}
+\date{\today}
+
+\begin{document}
+  
+\begin{frame}
+  \titlepage\thispagestyle{empty}
+\end{frame}
+
+\begin{frame}
+
+  \frametitle{Introduction}
+
+  This class is a writing environment designed to integrate {\LuaLaTeX} and Python 3 to create reproducible documents with executable and typesettable code, outputs, and errors. This document class may be useful to scientists, engineers, researchers, or anyone who needs to create a reproducible document with significant plotting, computation, or other needs. This project is at an early stage and has not been versioned yet, so consider it unsupported and use at your own risk.
+
+\end{frame}
+
+\begin{frame}[fragile]{A Plot with PyLuaTex}
+  \begin{columns}
+    \begin{column}{0.25\textwidth}
+        \begin{itemize}
+        \item Sine Wave
+        \item Square Wave
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.75\textwidth}
+      \pyloadcontext%
+      \begin{pycode}
+        import numpy as np
+        time = np.linspace(0, 1, 999)
+        freq = 10
+        omega = 2 * np.pi * freq
+        sine = np.sin(omega * time)
+        square = np.sign(sine)
+        fig, ax = plt.subplots(
+            2,
+            1,
+            figsize=(geometry.column_width / 72.27, 0.8 * geometry.text_height / 72.27),
+            sharex=True,
+        )
+        ax[0].plot(time, sine, label=r"Sine Wave")
+        ax[0].set_ylabel(r"Voltage $\left[\unit{\volt}\right]$")
+        ax[0].xaxis.set_major_formatter(plot.get_eng_formatter(r"\second"))
+        ax[0].yaxis.set_major_formatter(plot.get_eng_formatter(r"\volt"))
+        ax[1].plot(time, square, label=r"Damped Sine Wave")
+        ax[1].set_xlabel(r"Time $\left[\unit{\second}\right]$")
+        ax[1].set_ylabel(r"Voltage $\left[\unit{\volt}\right]$")
+        ax[1].xaxis.set_major_formatter(plot.get_eng_formatter(r"\second"))
+        ax[1].yaxis.set_major_formatter(plot.get_eng_formatter(r"\volt"))
+        fig.align_ylabels()
+        plot.output_figure(fig)
+      \end{pycode}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\end{document}
