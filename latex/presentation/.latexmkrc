@@ -3,6 +3,6 @@ $bibtex_use = 1.5;
 $synctex = 1;
 $lualatex = 'lualatex';
 $cleanup_includes_generated = 1;
-$clean_ext = 'xmpdata xmpi nav vrb snm';
+$clean_ext = 'xmpdata xmpi nav snm vrb';
 
 set_tex_cmds('--shell-escape ');

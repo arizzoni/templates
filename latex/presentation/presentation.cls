@@ -4,7 +4,7 @@
 \newcommand{\thebaseclass}{beamer}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\thebaseclass}}
 \ProcessOptions\relax
-\LoadClass[aspectratio=1609,hyperref={implicit=false}]{\thebaseclass}
+\LoadClass{\thebaseclass}
 
 % LuaLaTeX Packages
 \RequirePackage{luatexbase}
@@ -14,11 +14,12 @@
 \RequirePackage{luacolor}
 \RequirePackage{pyluatex}
 \RequirePackage{linebreaker}
+\RequirePackage{pyluaplot}
 
 % Localization
 \RequirePackage{polyglossia}
-\setdefaultlanguage[variant=american]{english}
 \RequirePackage{csquotes}
+\setdefaultlanguage[variant=american]{english}
 
 % Mathematics
 \RequirePackage{mathtools}
@@ -49,138 +50,64 @@ mathtools-overbracket}]{unicode-math}
 \RequirePackage{tikz}
 \usepackage[%
   american,
-  siunitx,
   emptydiode,
   arrowmos,
-  fetbodydiode,
-  smartlabels
+  nofetbodydiode,
+  straightlabels
 ]{circuitikz}
+\ctikzset{
+  quadpoles style=inline,
+  bipoles/thickness=1
+}
+\tikzset{
+  block/.style = {
+    draw,
+    fill=white,
+    rectangle,
+    minimum height=6ex,
+    minimum width=3em
+  }
+}
 
-\setmathfont{STIXTwoMath-Regular}[%
-    Extension={.otf},
+
+\def\mathdefault#1{#1}
+\setmathfont{STIX Two Math}[%
+    Ligatures=TeX,
     Scale=1
     ]
-\setmainfont{STIXTwoText}[%
-    Extension={.otf},
-    UprightFont={*-Regular},
-    ItalicFont={*-Italic},
-    BoldFont={*-Bold},
-    BoldItalicFont={*-BoldItalic},
+\setmainfont{STIX Two Text}[%
     Ligatures=TeX,
     Scale=MatchLowercase
     ]
-\setsansfont{ClearSans}[%
-    Extension={.ttf},
-    UprightFont={*-Regular},
-    ItalicFont={*-Italic},
-    BoldFont={*-Bold},
-    BoldItalicFont={*-BoldItalic},
+\setsansfont{Iosevka Aile}[%
     Ligatures=TeX,
     Scale=MatchLowercase
     ]
-\setmonofont{InconsolataLgcNerdFontMono}[%
-    Extension={.ttf},
-    UprightFont={*-Regular},
-    ItalicFont={*-Italic},
-    BoldFont={*-Bold},
-    BoldItalicFont={*-BoldItalic},
+\setmonofont{Iosevka Fixed}[%
     Ligatures=TeX,
     Scale=MatchLowercase
     ]
+
+%\setmathfont{Tex Gyre Termes Math}[%
+%    Ligatures=TeX,
+%    Scale=1
+%    ]
+%\setmainfont{Tex Gyre Termes}[%
+%    Ligatures=TeX,
+%    Scale=MatchLowercase
+%    ]
+%\setsansfont{Tex Gyre Heros}[%
+%    Ligatures=TeX,
+%    Scale=MatchLowercase
+%    ]
+%\setmonofont{Tex Gyre Cursor}[%
+%    Ligatures=TeX,
+%    Scale=MatchLowercase,
+%    ]
+
 \renewcommand{\hrulefill}{%
-  \leavevmode\leaders\hrule height 0.6ex depth -0.4ex \hfill\kern0pt }
-
-\usefonttheme[stillsansseriflarge, stillsansserifsmall]{serif}
-\usecolortheme{seagull}
-\usecolortheme{seahorse}
-
-\definecolor{OSUscarlet}{RGB}{187,0,0}
-\definecolor{OSUgrey}{RGB}{66,66,66}
-
-\setbeamercolor*{structure}{bg=OSUscarlet,fg=black}
-
-\setbeamercolor*{palette primary}{use=structure,fg=white,bg=OSUscarlet}
-\setbeamercolor*{palette secondary}{use=structure,fg=black,bg=OSUscarlet}
-\setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=OSUgrey}
-\setbeamercolor*{palette quaternary}{fg=OSUscarlet,bg=white}
-
-\setbeamercolor{section in toc}{fg=black,bg=white}
-\setbeamercolor{alerted text}{use=structure,fg=OSUscarlet}
-
-\setbeamercolor{titlelike}{parent=palette primary}
-\setbeamercolor{frametitle}{bg=OSUscarlet,fg=white}
-
-\setbeamercolor*{titlelike}{parent=palette primary}
-
-\setbeamertemplate{itemize item}{---}
-\setbeamertemplate{itemize subitem}{--}
-\setbeamertemplate{itemize subsubitem}{-}
-\setbeamertemplate{navigation symbols}{}
-\setbeamertemplate{footline}{
-  \begin{beamercolorbox}[wd=30em,ht=6ex]{section in toc}
-    \begin{beamercolorbox}[wd=6ex,ht=6ex,sep=1ex]{section in head/foot}
-    \end{beamercolorbox}
-    \begin{beamercolorbox}[wd=24em,ht=6ex, sep=1ex]{titlelike}
-        \insertauthor%
-    \end{beamercolorbox}
-  \end{beamercolorbox}
-}
-\setbeamertemplate{frametitle}{
-    \begin{beamercolorbox}[wd=\paperwidth,sep=1ex]{titlelike}
-      \insertframetitle\vspace{-0.5ex}%
-      \normalsize\newline\makebox[\textwidth]{\insertframesubtitle\hrulefill}
-      \hspace{0.5em}\insertframenumber\hspace{0.5em}\hrulefill%
-    \end{beamercolorbox}
-}
-\setbeamertemplate{headline}{}
-
-\PitonOptions{%
-  % font-command={\small\ttfamily},%
-  auto-gobble,%
-  line-numbers=true,%
-  line-numbers/skip-empty-lines=false,%
-  line-numbers/label-empty-lines=true,%
-  line-numbers/resume,%
-  left-margin=auto,%
-  splittable=4,%
-  break-lines,%
-  % break-strings-anywhere,%
-  indent-broken-lines,%
-  end-of-broken-line={\,},%
-  continuation-symbol={\,},%
-  % line-numbers/format={\footnotesize\color{gray}}%
-}
-
-\SetPitonStyle{%
-  Number=\color{darkgray},%
-  String.Short=\color{darkgray} \slshape,%
-  String.Long=\color{darkgray} \slshape,%
-  String=\color{darkgray} \slshape,%
-  String.Doc=\color{gray},%
-  String.Interpol=\color{darkgray} \slshape,%
-  Interpol.Inside=\color{darkgray} \slshape,%
-  Operator=\color{darkgray} \bfseries,%
-  Operator.Word=\color{darkgray} \bfseries,%
-  Name.Builtin=\color{black},%
-  Name.Type=\color{darkgray},%
-  Name.Field=\color{darkgray} \bfseries,%
-  Name.Decorator=\color{darkgray} \slshape,%
-  Name.Namespace=\color{darkgray} \bfseries,%
-  Name.Class=\color{gray} \bfseries,%
-  Name.Constructor=\color{gray} \bfseries,%
-  Name.Module=\color{gray} \bfseries,%
-  Name.Function=\color{gray} \bfseries,%
-  UserFunction=\color{gray} \bfseries,%
-  Exception=\color{darkgray} \slshape,%
-  InitialValues=\color{darkgray},%
-  Preproc=\color{darkgray} \bfseries,%
-  TypeParameter=\color{darkgray} \bfseries,%
-  Comment=\color{gray} \slshape,%
-  Comment.LaTeX=\color{gray} \slshape,%
-  Keyword.Constant=\color{darkgray},%
-  Keyword=\color{darkgray} \bfseries,%
-  Identifier=\color{black}%
-}
+  \normalsize{\leavevmode\leaders\hrule height 0.6ex depth -0.4ex \hfill\kern0pt}
+  }
 
 \tikzset{%
   block/.style = {%
@@ -201,108 +128,75 @@ mathtools-overbracket}]{unicode-math}
   switches/scale=1.25%
 }
 
-% Python Code Environments
-\begin{luacode}
-  function pytypeset()
-  	tex.print("\\vspace{\\abovecaptionskip}")
-  	tex.print("\\begin{Piton}")
-  	tex.print(pyluatex.get_last_code())
-  	tex.print("\\end{Piton}")
-  	tex.print("")
-  end
+\definecolor{OSUscarlet}{RGB}{187,0,0}
+\definecolor{OSUgrey}{RGB}{66,66,66}
 
-  function pyoutput()
-  	tex.print("\\vspace{\\abovecaptionskip}")
-  	tex.print("\\begin{Piton}")
-  	tex.print(pyluatex.get_last_output())
-  	tex.print("\\end{Piton}")
-  	tex.print("")
-  end
-\end{luacode}
+\setbeamercolor*{structure}{bg=OSUscarlet,fg=black}
 
-\newcommand*{\pytypeset}{\small\directlua{pytypeset()}}
-\newcommand*{\pyoutput}{\small\directlua{pyoutput()}}
-\NewDocumentEnvironment{pycode}{}{\PyLTVerbatimEnv\begin{python}}{\end{python}}
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=OSUscarlet}
+\setbeamercolor*{palette secondary}{use=structure,fg=black,bg=OSUscarlet}
+\setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=OSUgrey}
+\setbeamercolor*{palette quaternary}{fg=OSUscarlet,bg=white}
 
-% Get lengths (in LaTeX points!)
-\newlength\inlength \inlength=1in%
-\newlength\cmlength \cmlength=1cm%
-\newlength\mmlength \mmlength=1mm%
-\newlength\emlength \emlength=1em%
-\newlength\exlength \exlength=1ex%
-\newlength\bplength \bplength=1bp%
-\newlength\ddlength \ddlength=1dd%
-\newlength\pclength \pclength=1pc%
+\setbeamercolor{section in toc}{parent=palette quaternary}
+\setbeamercolor{alerted text}{parent=palette primary}
 
-% Font Sizes
-\makeatletter
-\tiny\xdef\thetinysize{\f@size}
-\scriptsize\xdef\thescriptsize{\f@size}
-\footnotesize\xdef\thefootnotesize{\f@size}
-\small\xdef\thesmallsize{\f@size}
-\normalsize\xdef\thenormalsize{\f@size}
-\large\xdef\thelargesize{\f@size}
-\Large\xdef\theLargesize{\f@size}
-\LARGE\xdef\theLARGEsize{\f@size}
-\huge\xdef\thehugesize{\f@size}
-\Huge\xdef\theHugesize{\f@size}
-\makeatother
+\setbeamercolor{titlelike}{parent=palette primary}
+\setbeamercolor{pictureframe}{parent=palette tertiary}
+\setbeamercolor{frametitle}{bg=OSUscarlet,fg=white}
 
-% Fonts
-\rmfamily\mdseries\upshape\xdef\thermfont{\expandafter\string\the\font}
-\sffamily\mdseries\upshape\xdef\thesffont{\expandafter\string\the\font}
-\ttfamily\mdseries\upshape\xdef\thettfont{\expandafter\string\the\font}
+\setbeamercolor*{titlelike}{parent=palette primary}
 
-% Math Fonts
-\xdef\themathfont{\expandafter\string\the\textfont0}
-\xdef\themathfontone{\expandafter\string\the\textfont1}
-\xdef\themathfonttwo{\expandafter\string\the\textfont2}
-\xdef\themathfontthree{\expandafter\string\the\textfont3}
+\usefonttheme{professionalfonts}
+\usefonttheme[stillsansseriflarge, stillsansserifsmall]{serif}
 
-\NewDocumentCommand{\pyloadcontext}{}{%
-  \pyc{baselineskip=r'\the\baselineskip'}
-  % \pyc{baselinestretch=r'\the\baselinestretch'}
-  \pyc{columnsep=r'\the\columnsep'}
-  \pyc{columnwidth=r'\the\columnwidth'}
-  \pyc{evensidemargin=r'\the\evensidemargin'}
-  \pyc{linewidth=r'\the\linewidth'}
-  \pyc{oddsidemargin=r'\the\oddsidemargin'}
-  \pyc{paperwidth=r'\the\paperwidth'}
-  \pyc{paperheight=r'\the\paperheight'}
-  \pyc{parindent=r'\the\parindent'}
-  \pyc{parskip=r'\the\parskip'}
-  \pyc{textheight=r'\the\textheight'}
-  \pyc{textwidth=r'\the\textwidth'}
-  \pyc{topmargin=r'\the\topmargin'}
-  \pyc{unitlength=r'\the\unitlength'}
-  \pyc{inch=r'\the\inlength'}
-  \pyc{cm=r'\the\cmlength'}
-  \pyc{mm=r'\the\mmlength'}
-  \pyc{em=r'\the\emlength'}
-  \pyc{ex=r'\the\exlength'}
-  \pyc{bp=r'\the\bplength'}
-  \pyc{dd=r'\the\ddlength'}
-  \pyc{pc=r'\the\pclength'}
-  \pyc{romanfont=r'\thermfont'}
-  \pyc{sansfont=r'\thesffont'}
-  \pyc{monofont=r'\thettfont'}
-  \pyc{mathfont=r'\themathfont'}
-  \pyc{mathfontone=r'\themathfontone'}
-  \pyc{mathfonttwo=r'\themathfonttwo'}
-  \pyc{mathfontthree=r'\themathfontthree'}
-  \pyc{tiny=r'\thetinysize'}
-  \pyc{scriptsize=r'\thescriptsize'}
-  \pyc{footnotesize=r'\thefootnotesize'}
-  \pyc{small=r'\thesmallsize'}
-  \pyc{normalsize=r'\thenormalsize'}
-  \pyc{large=r'\thelargesize'}
-  \pyc{Large=r'\theLargesize'}
-  \pyc{LARGE=r'\theLARGEsize'}
-  \pyc{huge=r'\thehugesize'}
-  \pyc{Huge=r'\theHugesize'}
-  \pyfileq{presentation.py}
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamertemplate{itemize subitem}{\textopenbullet}
+\setbeamertemplate{itemize subsubitem}{\textemdash}
+\setbeamertemplate{navigation symbols}{}
+
+\titlegraphic{
+  \begin{beamercolorbox}[wd=0.55\paperwidth,ht=\paperheight]{pictureframe}
+    \vspace{-2ex}\tikz\node[opacity=0.25]{
+      \hspace{-0.8em}\includegraphics[width=\paperwidth,clip,trim={0 3in 0 0}]{assets/Rotunda1.jpg}
+    };
+  \end{beamercolorbox}
 }
 
-\AtBeginDocument{%
-  \pyloadcontext%
+\setbeamertemplate{title page}{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=\paperheight]{pictureframe}
+    \begin{beamercolorbox}[wd=0.4\paperwidth,ht=\paperheight,sep=1em]{titlelike}
+      \textsf{\Large\inserttitle}\par\noindent\textsf{\textit{\normalsize\insertsubtitle}}
+      \par\noindent\hrulefill\vspace{0.125\paperheight}
+      \par\noindent\textsf{\small\insertauthor}\vspace{0.125\paperheight}
+      \par\noindent\textsf{\small\insertinstitute}
+    \end{beamercolorbox}
+    \inserttitlegraphic%
+  \end{beamercolorbox}
 }
+
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=6ex]{section in toc}
+    \begin{beamercolorbox}[wd=6ex,ht=6ex]{section in head/foot}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=128ex,ht=6ex]{section in toc}
+      \vspace*{0.5ex}\textsf{\small\inserttitle}\vspace*{0.5ex}%
+    \end{beamercolorbox}
+  \end{beamercolorbox}
+}
+
+\setbeamertemplate{frametitle}{
+  \vspace{-2pt}\begin{beamercolorbox}[wd=\paperwidth,ht=5.25ex,sep=1ex]{titlelike}
+    \noindent\textsf{\large\bfseries\insertframetitle}\vspace{-1ex}
+    \newline\makebox[\paperwidth]{
+      \ifx\insertframesubtitle\@empty\else% If there is a subtitle then:
+        \textsf{\textit{\normalsize\insertframesubtitle}}\hspace{0.5em}
+      \fi
+      \hrulefill\hspace{0.5em}\textsf{\textit{\small\insertframenumber}}\hspace{0.5em}
+      \makebox[1em]{\hrulefill}
+      \makebox[1em]{\hspace{1em}}
+    }
+  \end{beamercolorbox}
+}
+
+\setbeamertemplate{headline}{}

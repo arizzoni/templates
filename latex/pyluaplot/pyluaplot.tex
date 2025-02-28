@@ -1,0 +1,129 @@
+\documentclass[10pt, twocolumn]{article}
+\author{Alessandro Rizzoni}
+\title{PyLuaPlot}
+\date{\today}
+
+% Localization
+\usepackage{polyglossia}
+\usepackage{csquotes}
+\setdefaultlanguage[variant=american]{english}
+
+% Math and Fonts
+\usepackage{mathtools}
+\usepackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
+\usepackage{lualatex-math}
+
+\usepackage[stixtwo]{fontsetup}
+\setsansfont{Courier Prime Sans}[%
+    Ligatures=TeX,
+    Scale=MatchLowercase
+    ]
+\setmonofont{Courier Prime Code}[%
+    Ligatures=TeX,
+    Scale=MatchLowercase
+    ]
+
+% Matplotlib - PyLuaTex Interface
+\usepackage{pyluaplot}
+
+% Code Typesetting
+\usepackage{listings}
+\lstset{%
+  basicstyle=\small\ttfamily,
+  commentstyle=\itshape,
+  keywordstyle=\bfseries,
+  }
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+  This class is a writing environment designed to integrate LuaLaTeX and Python
+  3 to create reproducible documents with executable and typesettable code,
+  outputs, and errors. This document class may be useful to scientists,
+  engineers, researchers, or anyone who needs to create a reproducible document
+  with significant plotting, computation, or other needs. This project is at an
+  early stage and has not been versioned yet, so consider it unsupported and use
+  at your own risk.
+
+  If you want to try this, you \emph{must} declare a math font. I prefer to use
+  the wonderful \texttt{fontsetup} package. Please read the code --- this is
+  pretty close to a minimum viable implementation (with the notable exception of
+  the python file --- that has a few extra bells and whistles).
+
+\end{abstract}
+
+\section{Some Examples in Brief}
+
+\subsection{Example 1}
+
+As a first example, Figure \ref{fig:sine} shows a sinusoidal waveform and the
+code used to generate it is shown above. Note that there are no additional
+external files generated using this method. The Python utilities provided with
+the class define some utility classes that can bring certain information from
+the LaTeX context to the Python context. Matplotlib is used as the plotting
+engine.
+
+\begin{figure}[!ht]
+  \begin{pycode}
+    import numpy as np
+
+    time = np.linspace(0, 1, 1000)
+    frequency = 10
+    omega = 2 * np.pi * frequency
+    sine = np.sin(omega * time)
+
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(time, sine, label="Sine Wave")
+    ax.set_xlabel(r"Time $\left[\mathrm{s}\right]$")
+    ax.set_ylabel(r"Voltage $\left[\mathrm{V}\right]$")
+    ax.xaxis.set_major_formatter(plot.get_eng_formatter(r"s"))
+    ax.yaxis.set_major_formatter(plot.get_eng_formatter(r"V"))
+
+    plot.output_figure(fig)
+  \end{pycode}
+  \caption{A sine wave}\label{fig:sine}
+\end{figure}
+
+\subsection{Example 2}
+
+For the second example, we look at a similar plot of a damped sinusoid. We can
+reuse the sine vector that we created in the previous example because every
+\texttt{pycode} environment shares the same interpreter thanks to
+PyLuaTex. The code used to generate the plot is below.
+
+\begin{figure}[!ht]
+  \begin{pycode}
+    time = np.linspace(0, 1, 1000)
+    damped_sine = sine * np.exp(-5 * time)
+    damped_sine = damped_sine / np.max(damped_sine)
+
+    fig, ax = plt.subplots(1, 1)
+    ax.plot(time, damped_sine, label="Damped Sine Wave")
+    ax.set_xlabel(r"Time $\left[\mathrm{s}\right]$")
+    ax.set_ylabel(r"Voltage $\left[\mathrm{V}\right]$")
+    ax.xaxis.set_major_formatter(plot.get_eng_formatter(r"s"))
+    ax.yaxis.set_major_formatter(plot.get_eng_formatter(r"V"))
+
+    plot.output_figure(fig)
+  \end{pycode}
+  \caption{A damped sine wave}
+\end{figure}
+
+\pagebreak\onecolumn
+
+\section{The Style File}
+
+\lstinputlisting[language=Tex]{pyluaplot.sty}
+
+\section{The LaTeX File}
+
+\lstinputlisting[language=Tex]{pyluaplot.tex}
+
+\section{The Python File}
+
+\lstinputlisting[language=Python]{pyluaplot.py}
+
+\end{document}

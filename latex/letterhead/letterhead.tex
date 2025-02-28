@@ -1,11 +1,56 @@
 \documentclass[12pt]{letter}
-\usepackage[letterpaper, lmargin=1in, rmargin=1in, tmargin = 1in, bmargin = 1in, headsep=0in]{geometry}
-\usepackage[english]{babel}
 
-\usepackage{stix2}
+% Fonts
+\RequirePackage{fontspec}
 
-\usepackage{lipsum}
+% Localization
+\RequirePackage{polyglossia}
+\RequirePackage{csquotes}
+\setdefaultlanguage[variant=american]{english}
 
+% Mathematics
+\RequirePackage{mathtools}
+\RequirePackage[warnings-off={mathtools-colon,
+mathtools-overbracket}]{unicode-math}
+\RequirePackage{lualatex-math}
+\RequirePackage{steinmetz}
+\RequirePackage[%
+  exponent-mode=engineering,
+  list-separator={, },
+  list-pair-separator={ and },
+  list-final-separator={ and },
+  complex-mode=cartesian,
+  input-complex-root={j},
+  output-complex-root={j},
+  complex-root-position=before-number,
+  complex-angle-unit=degrees,
+  complex-symbol-degree={$^\circ$},
+  angle-mode=decimal,
+  angle-symbol-degree={$&\circ$},
+  display-per-mode=fraction,
+  inline-per-mode=single-symbol,
+  sticky-per=true,
+]{siunitx}
+
+\setmathfont{STIX Two Math}[%
+    Ligatures=TeX,
+    Scale=1
+    ]
+\setmainfont{STIX Two Text}[%
+    Ligatures=TeX,
+    Scale=MatchLowercase
+    ]
+\setsansfont{Iosevka Aile}[%
+    Ligatures=TeX,
+    Scale=MatchLowercase
+    ]
+\setmonofont{Iosevka Fixed}[%
+    Ligatures=TeX,
+    Scale=MatchLowercase
+    ]
+
+% Formatting
+\RequirePackage{linebreaker}
 \usepackage{fancyhdr}
 \fancypagestyle{plain}{
 	\fancyhf{}
@@ -27,8 +72,6 @@
 \begin{letter}{ Addressee \\ Organization \\ Address Line 1 \\ Address Line 2 }
 
 	\opening{Dear Addressee,}
-
-	\lipsum[2-3]
 
 	\closing{Warmest regards,}
 

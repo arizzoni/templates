@@ -1,0 +1,163 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{pyluaplot}
+
+% LuaLaTeX Packages
+\RequirePackage{luacode}
+\RequirePackage{piton}
+\RequirePackage{luacolor}
+\RequirePackage{pyluatex}
+\RequirePackage{pgf}
+
+\PitonOptions{%
+  % font-command={\small\ttfamily},%
+  auto-gobble,%
+  line-numbers=true,%
+  line-numbers/skip-empty-lines=false,%
+  line-numbers/label-empty-lines=true,%
+  line-numbers/resume,%
+  left-margin=auto,%
+  splittable=4,%
+  break-lines,%
+  % break-strings-anywhere,%
+  indent-broken-lines,%
+  end-of-broken-line={\,},%
+  %continuation-symbol={\,},%
+  % line-numbers/format={\footnotesize\color{gray}}%
+}
+
+\SetPitonStyle{%
+  Number=\color{darkgray},%
+  String.Short=\color{darkgray} \slshape,%
+  String.Long=\color{darkgray} \slshape,%
+  String=\color{darkgray} \slshape,%
+  String.Doc=\color{gray},%
+  String.Interpol=\color{darkgray} \slshape,%
+  Interpol.Inside=\color{darkgray} \slshape,%
+  Operator=\color{darkgray} \bfseries,%
+  Operator.Word=\color{darkgray} \bfseries,%
+  Name.Builtin=\color{black},%
+  Name.Decorator=\color{darkgray} \slshape,%
+  Name.Namespace=\color{darkgray} \bfseries,%
+  Name.Class=\color{black} \bfseries,%
+  Name.Function=\color{gray} \bfseries,%
+  UserFunction=\color{gray} \bfseries,%
+  Exception=\color{black} \slshape,%
+  InitialValues=\color{black},%
+  Comment=\color{gray} \slshape,%
+  Comment.LaTeX=\color{gray} \slshape,%
+  Keyword.Constant=\color{black},%
+  Keyword=\color{gray} \bfseries,%
+  Identifier=\color{black}%
+}
+
+  
+% Get lengths (in LaTeX points! Don't forget...)
+\newlength\inlength%
+\inlength=1in%
+\newlength\cmlength%
+\cmlength=1cm%
+\newlength\mmlength%
+\mmlength=1mm%
+\newlength\emlength%
+\emlength=1em%
+\newlength\exlength%
+\exlength=1ex%
+\newlength\bplength%
+\bplength=1bp%
+\newlength\ddlength%
+\ddlength=1dd%
+\newlength\pclength%
+\pclength=1pc%
+
+% Set up the python context hook
+\NewDocumentCommand{\pyloadcontext}{}{%
+
+  % Font Sizes
+  \tiny\xdef\thetinysize{\f@size}
+  \scriptsize\xdef\thescriptsize{\f@size}
+  \footnotesize\xdef\thefootnotesize{\f@size}
+  \small\xdef\thesmallsize{\f@size}
+  \normalsize\xdef\thenormalsize{\f@size}
+  \large\xdef\thelargesize{\f@size}
+  \Large\xdef\theLargesize{\f@size}
+  \LARGE\xdef\theLARGEsize{\f@size}
+  \huge\xdef\thehugesize{\f@size}
+  \Huge\xdef\theHugesize{\f@size}
+
+  % Fonts
+  \rmfamily\mdseries\upshape\xdef\thermfont{\expandafter\string\the\font}
+  \sffamily\mdseries\upshape\xdef\thesffont{\expandafter\string\the\font}
+  \ttfamily\mdseries\upshape\xdef\thettfont{\expandafter\string\the\font}
+
+  % Math Fonts
+  \xdef\themathfont{\expandafter\string\the\textfont0}
+  \xdef\themathfontone{\expandafter\string\the\textfont1}
+  \xdef\themathfonttwo{\expandafter\string\the\textfont2}
+  \xdef\themathfontthree{\expandafter\string\the\textfont3}
+
+  \pyc{baselineskip=r'\the\baselineskip'}
+  % \pyc{baselinestretch=r'\the\baselinestretch'}
+  \pyc{columnsep=r'\the\columnsep'}
+  \pyc{columnwidth=r'\the\columnwidth'}
+  \pyc{evensidemargin=r'\the\evensidemargin'}
+  \pyc{linewidth=r'\the\linewidth'}
+  \pyc{oddsidemargin=r'\the\oddsidemargin'}
+  \pyc{paperwidth=r'\the\paperwidth'}
+  \pyc{paperheight=r'\the\paperheight'}
+  \pyc{parindent=r'\the\parindent'}
+  \pyc{parskip=r'\the\parskip'}
+  \pyc{textheight=r'\the\textheight'}
+  \pyc{textwidth=r'\the\textwidth'}
+  \pyc{topmargin=r'\the\topmargin'}
+  \pyc{unitlength=r'\the\unitlength'}
+  \pyc{inch=r'\the\inlength'}
+  \pyc{cm=r'\the\cmlength'}
+  \pyc{mm=r'\the\mmlength'}
+  \pyc{em=r'\the\emlength'}
+  \pyc{ex=r'\the\exlength'}
+  \pyc{bp=r'\the\bplength'}
+  \pyc{dd=r'\the\ddlength'}
+  \pyc{pc=r'\the\pclength'}
+  \pyc{romanfont=r'\thermfont'}
+  \pyc{sansfont=r'\thesffont'}
+  \pyc{monofont=r'\thettfont'}
+  \pyc{mathfont=r'\themathfont'}
+  \pyc{mathfontone=r'\themathfontone'}
+  \pyc{mathfonttwo=r'\themathfonttwo'}
+  \pyc{mathfontthree=r'\themathfontthree'}
+  \pyc{tiny=r'\thetinysize'}
+  \pyc{scriptsize=r'\thescriptsize'}
+  \pyc{footnotesize=r'\thefootnotesize'}
+  \pyc{small=r'\thesmallsize'}
+  \pyc{normalsize=r'\thenormalsize'}
+  \pyc{large=r'\thelargesize'}
+  \pyc{Large=r'\theLargesize'}
+  \pyc{LARGE=r'\theLARGEsize'}
+  \pyc{huge=r'\thehugesize'}
+  \pyc{Huge=r'\theHugesize'}
+  \pyfileq{pyluaplot.py}
+}
+
+\NewDocumentEnvironment{pycode}{}
+{\PyLTVerbatimEnv\pyloadcontext\begin{python}}
+{\end{python}}
+
+% Python Code Environments
+\begin{luacode}
+  function pytypeset()
+  	tex.print("\\begin{Piton}")
+  	tex.print(pyluatex.get_last_code())
+  	tex.print("\\end{Piton}")
+  	tex.print("")
+  end
+
+  function pyoutput()
+  	tex.print("\\begin{Piton}")
+  	tex.print(pyluatex.get_last_output())
+  	tex.print("\\end{Piton}")
+  	tex.print("")
+  end
+\end{luacode}
+
+\newcommand*{\pytypeset}{\small\directlua{pytypeset()}}
+\newcommand*{\pyoutput}{\small\directlua{pyoutput()}}

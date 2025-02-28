@@ -1,10 +1,7 @@
 \documentclass[10pt]{homework}
 
-\renewcommand{\theauthor}{Homework Template \\ Spring 2024 \\ Alex Rizzoni}
-\renewcommand{\thedoctitle}{\small The Ohio State University \\ College of Engineering \\ Electrical \& Computer Engineering Dept.}
-
-\author{\theauthor}
-\title{\thedoctitle}
+\author{Homework Template \\ Spring 2024 \\ Alex Rizzoni}
+\title{\small The Ohio State University \\ College of Engineering \\ Electrical \& Computer Engineering Dept.}
 
 \begin{document}
 
@@ -12,7 +9,7 @@
 
 \begin{center}
     \begin{figure}
-        \begin{python}
+        \begin{pycode}
 import numpy as np
 
 FREQUENCY = 4
@@ -21,23 +18,23 @@ PHI = np.pi / 4
 
 t = np.linspace(0, 1, 1000)
 
-x_1 = np.cos(OMEGA*t + PHI)
-x_2 = np.sin(OMEGA*t + PHI)
+x_1 = np.cos(OMEGA * t + PHI)
+x_2 = np.sin(OMEGA * t + PHI)
 
 fig, ax = plt.subplots(1, 1)
-ax.plot(t, x_1, label='$x_1$')
-ax.plot(t, x_2, label='$x_2$')
-ax.plot(t, -x_1, label='$x_3$')
-ax.plot(t, -x_2, label='$x_4$')
-ax.set_xlabel(r'Time')
-ax.set_ylabel(r'Voltage')
-ax.xaxis.set_major_formatter(eng_format(r'\unit{\second}'))
-ax.yaxis.set_major_formatter(eng_format(r'\unit{\volt}'))
-ax.legend(ncols=len(ax.lines), bbox_to_anchor=(0.5, 1), loc='lower center')
+ax.plot(t, x_1, label="$x_1$")
+ax.plot(t, x_2, label="$x_2$")
+ax.plot(t, -x_1, label="$x_3$")
+ax.plot(t, -x_2, label="$x_4$")
+ax.set_xlabel(r"Time $\left[\mathrm{s}\right]$")
+ax.set_ylabel(r"Voltage $\left[\mathrm{V}\right]$")
+ax.xaxis.set_major_formatter(plot.get_eng_formatter(r"s"))
+ax.yaxis.set_major_formatter(plot.get_eng_formatter(r"V"))
+ax.legend(ncols=len(ax.lines), bbox_to_anchor=(0.5, 1), loc="lower center")
 fig.align_ylabels()
 
-environment.output_figure(fig)
-        \end{python}
+plot.output_figure(fig)
+        \end{pycode}
         \caption{Sinusoidal Functions}\label{fig_sine_funcs}
     \end{figure}
 \end{center}
